@@ -1,5 +1,5 @@
 //
-// $Id: Receiver.hh,v 1.1 2000/08/29 21:24:06 burghart Exp $
+// $Id: Receiver.hh,v 1.2 2003/05/05 15:28:25 burghart Exp $
 //
 // Copyright (C) 1999
 // Binet Incorporated 
@@ -73,6 +73,6 @@ public:
 //
 // Generic type for a vector of Receivers
 //
-typedef vector<Receiver*> ReceiverList_t;
+typedef std::vector<Receiver*> ReceiverList_t;
 
 # endif // _RECEIVER_HH_

@@ -1,5 +1,5 @@
 //
-// $Id: NetReader.hh,v 1.1 2000/08/29 21:24:03 burghart Exp $
+// $Id: NetReader.hh,v 1.2 2003/05/05 15:28:25 burghart Exp $
 //
 // Copyright (C) 1999
 // Binet Incorporated 
@@ -26,7 +26,7 @@
 //
 // type to map from IP addresses to the associated Receiver
 //
-typedef map<unsigned long, Receiver*> ClientMap_t;
+typedef std::map<unsigned long, Receiver*> ClientMap_t;
 
 
 
