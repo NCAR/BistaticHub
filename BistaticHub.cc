@@ -1,5 +1,5 @@
 //
-// $Id: BistaticHub.cc,v 1.1 2000/08/29 21:23:58 burghart Exp $
+// $Id: BistaticHub.cc,v 1.2 2000/08/29 22:15:56 burghart Exp $
 //
 // Copyright (C) 1999
 // Binet Incorporated 
@@ -53,7 +53,6 @@ ReceiverList_t Rcvrs;
 const int PHASE_IN_PORT = 21100;
 const int PHASE_OUT_PORT = 21000;
 const int IN_DATA_PORT = 0x6006;
-const int OUT_DATA_PORT = 2345;
 
 //
 // A linked list to hold the beams we haven't merged yet
@@ -78,7 +77,7 @@ int DebugLevel = 0;
 //
 // NCP threshold value for wind calculations
 //
-float NCPThresh = 0.0;
+float NCPThresh = 0.4;
 
 //
 // Where do we find our receiver info?
