@@ -12,17 +12,12 @@
 # include <arpa/inet.h>
 # include "VIRAQ_Beam.hh"
 
-extern "C"
-{
-#   include "globals.h"
-}
-
 //
 // Make sure that PRT*HITS divides evenly into 60 * 8000000 (This forces
 // a new beam to start at the top of each minute, and makes math
 // bearable below.  Remember that this is just a testing program...)
 //
-const int PRT = 8000;	// * 1/8 us
+const int PRT = 8000;
 const int HITS = 60;
 const int NGATES = 250;
 
@@ -55,15 +50,20 @@ main( int argc, char *argv[] )
 		 errno );
 	exit (1);
     }
+
+    int one = 1;
+    if (setsockopt(Socket, SOL_SOCKET, SO_BROADCAST, (void*)&one, 
+		     sizeof(one)) != 0)
+	fprintf( stderr, "Cannot set SO_BROADCAST flag for socket\n" );
 //
-// Set up the recipient's address using the given IP address (must be in 
-// network order) and the VIRAQ data port (0x6006)
+// Set up the recipient's address using the given host name
+// and the VIRAQ data port (0x6006)
 //
     struct sockaddr_in to;
     memset( (char*)&to, 0, sizeof( to ) );
     to.sin_family = AF_INET;
     to.sin_port = htons( 0x6006 );
-    inet_aton( argv[1], &to.sin_addr );
+    inet_pton( AF_INET, argv[1], &to.sin_addr );
 
     if (connect( Socket, (struct sockaddr*)&to, sizeof( to ) ) < 0)
     {
@@ -91,7 +91,7 @@ main( int argc, char *argv[] )
     Hdr.ew_velocity = 0.0;
     Hdr.ns_velocity = 0.0;
     Hdr.vert_velocity = 0.0;
-    Hdr.dataformat = (unsigned char)DATA_SIMPLEPP;	// from globals.h
+    Hdr.dataformat = (unsigned char)0;	// DATA_SIMPLEPP
     Hdr.prt2 = 0.0;
     Hdr.scan_type = (unsigned char)8;	// SUR
     Hdr.transition = (char)0;
@@ -189,7 +189,7 @@ nextbeam( int junk )
     unsigned long ibeamtime = (unsigned long) beamtime;
 
     Hdr.time = minute * 60 + ibeamtime;
-    Hdr.subsec = (beamtime - ibeamtime) * 10000;
+    Hdr.subsec = (short)((beamtime - ibeamtime) * 10000);
 //
 // Two minute volumes with four sweeps per volume, 500 beams/sweep,
 // and elevations: 0.5, 1.5, 2.5, and 3.5 degrees.
@@ -259,7 +259,7 @@ sendout( const char* data, int len )
     //
 	if (n < 0 && errno != ECONNREFUSED)
 	{
-	    fprintf( stderr, "Error %d sending data!\n", errno );
+	    perror("data send");
 	    exit( 1 );
 	}
     }
