@@ -6,7 +6,6 @@ config.cache
 config.log
 config.status
 Makefile
-Makefile.in
 pb_fakesource
 RcvrInfo
 vb_fakesource
