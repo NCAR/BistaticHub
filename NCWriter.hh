@@ -1,5 +1,5 @@
 //
-// $Id: NCWriter.hh,v 1.1 2000/08/29 21:24:02 burghart Exp $
+// $Id: NCWriter.hh,v 1.2 2001/08/28 16:28:25 burghart Exp $
 // netCDF writer class
 //
 // Copyright (C) 2000
@@ -30,7 +30,7 @@ public:
     NCWriter( const char* dir, int temponly = 0 );
     ~NCWriter( void );
     inline const char* FileName( void ) const { return FName; }
-    Write( const MergedBeam* mbeam );
+    int Write( const MergedBeam* mbeam );
     inline int LastIndexOfFile( void ) const { return TimeIndex - 1; }
 private:
     char* BaseDir;
