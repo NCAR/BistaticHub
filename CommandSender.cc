@@ -1,5 +1,5 @@
 //
-// $Id: CommandSender.cc,v 1.1 2000/08/29 21:23:59 burghart Exp $
+// $Id: CommandSender.cc,v 1.2 2001/08/28 16:26:33 burghart Exp $
 //
 // Copyright (C) 1998
 // Binet Incorporated 
@@ -18,6 +18,7 @@
 //
 
 # include <stdio.h>
+# include <stdlib.h>
 # include <string.h>
 # include <errno.h>
 # include <sys/types.h>
