@@ -1,5 +1,5 @@
 //
-// $Id: NCWriter.cc,v 1.1 2000/08/29 21:24:02 burghart Exp $
+// $Id: NCWriter.cc,v 1.2 2001/08/28 16:27:36 burghart Exp $
 // netCDF file writer class
 //
 // Copyright (C) 2000
@@ -503,7 +503,7 @@ NCWriter::DoDefinitions( const MergedBeam* mb )
 // reflectivity or power for each receiver
     for (r = 0; r < NumRcvrs; r++)
     {
-	char *units;
+	const char *units;
 	
 	sprintf( name, "%s%d", r ? "DM" : "DZ", r );
 	sprintf( longname, "%s (%s)", r ? "received power" : "reflectivity",
