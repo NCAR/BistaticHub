@@ -1,5 +1,5 @@
 //
-// $Id: BistaticHub.cc,v 1.2 2000/08/29 22:15:56 burghart Exp $
+// $Id: BistaticHub.cc,v 1.3 2001/08/28 16:25:38 burghart Exp $
 //
 // Copyright (C) 1999
 // Binet Incorporated 
@@ -19,6 +19,7 @@
 
 # include <stdio.h>
 # include <unistd.h>
+# include <math.h>
 # include <errno.h>
 # include <ctype.h>
 # include <signal.h>
