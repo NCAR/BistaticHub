@@ -1,12 +1,10 @@
 .deps
 aclocal.m4
+autom4te*.cache
 BistaticHub
 config.cache
 config.log
 config.status
-configure
-configure.scan
-configure.in
 Makefile
 Makefile.in
 pb_fakesource
