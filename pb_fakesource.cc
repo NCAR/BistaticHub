@@ -130,7 +130,7 @@ nextbeam( int junk )
 // Convert to the time needed in the header
 //
     Hdr.time = minute * 60 + ibeamtime;
-    Hdr.subsec = (beamtime - ibeamtime) * 10000;
+    Hdr.subsec = (short)((beamtime - ibeamtime) * 10000);
 //
 // 8 4-bit gates of power (first four zero)
 //
