@@ -1,0 +1,11 @@
+#
+# Site name: quoted string
+# Format: VIRAQ or PIRAQ
+# Azimuth: degrees w.r.t. transmitting radar
+# Range: distance to transmitting radar in km
+# IP address: in dot notation
+#
+# Site Name	Format	Azimuth	Range	IP Address
+#=======================================================
+Radar		VIRAQ	0.0	0.0	192.168.0.2
+Lichtenau	PIRAQ	212.0	27.2	192.168.1.1
