@@ -1,5 +1,5 @@
 /*
- * $Id: DataType.h,v 1.1 2000/08/29 21:24:00 burghart Exp $
+ * $Id: DataType.h,v 1.2 2001/08/28 16:10:20 burghart Exp $
  *
  * Copyright (C) 1998
  * Binet Incorporated 
@@ -40,4 +40,4 @@ static int DataTypeLen[] = { 8, 4, 4, 2, 2, 1, 1 };
 void MakeFloatArray( const void *rawdata, DataType type, int step, 
 		     float scale, float offset, float *fdata, int nvals );
 
-# endif _DATATYPE_H_
+# endif /* _DATATYPE_H_ */
