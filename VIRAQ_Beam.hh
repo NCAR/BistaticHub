@@ -1,5 +1,5 @@
 //
-// $Id: VIRAQ_Beam.hh,v 1.1 2000/08/29 21:24:07 burghart Exp $
+// $Id: VIRAQ_Beam.hh,v 1.2 2001/08/28 16:29:41 burghart Exp $
 //
 // Copyright (C) 1998
 // Binet Incorporated 
@@ -146,7 +146,7 @@ private:
     VIRAQ_RHdr rhdr;
     VIRAQ_Hdr hdr;
     const Receiver* MyReceiver;
-    void *data;
+    char *data;
     float *productdata;
 
     void CalculateProducts( void );
