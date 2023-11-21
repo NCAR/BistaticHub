@@ -1,25 +1,28 @@
-//
+// Beam.hh
 // Generic Beam class
+
+// Copyright © 2000 Binet, Inc.
+// Copyright © 2000 University Corporation for Atmospheric Research
 //
-// $Id: Beam.hh,v 1.1 2000/08/29 21:23:58 burghart Exp $
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// Copyright (C) 2000
-// Binet Incorporated 
-// 
-// All rights reserved
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
+//       http://www.apache.org/licenses/LICENSE-2.0
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
 //
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
+
 # ifndef _BEAM_HH_
 # define _BEAM_HH_
 
-# include "DataType.h"
+# include "DataType.hh"
 
 class Receiver;
 

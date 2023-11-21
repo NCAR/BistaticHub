@@ -1,21 +1,23 @@
-/*
- * $Id: DataType.cc,v 1.1 2000/08/29 21:24:00 burghart Exp $
- *
- * Copyright (C) 1999
- * Binet Incorporated 
- * 
- * All rights reserved
- *
- * No part of this work covered by the copyrights herein may be reproduced
- * or used in any form or by any means -- graphic, electronic, or mechanical,
- * including photocopying, recording, taping, or information storage and
- * retrieval systems -- without permission of the copyright owners.
- *
- * This software and any accompanying written materials are provided "as is"
- * without warranty of any kind.
- */
+// DataType.cc
+// Tools for bistatic data typing
+//
+// Copyright © 1999 Binet Incorporated
+//
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
+//
+//
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
 
-# include "DataType.h"
+# include "DataType.hh"
 # include "LE_Unpack.hh"
 
 void

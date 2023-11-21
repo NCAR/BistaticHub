@@ -7,7 +7,7 @@ BistaticHub_SOURCES = BistaticHub.cc Beam.cc CommandSender.cc \
 	V_BeamSource.cc \
 	\
 	Beam.hh BeamSource.hh \
-	CommandSender.hh DataType.h LE_Unpack.hh ByteOrder.hh \
+	CommandSender.hh DataType.hh LE_Unpack.hh ByteOrder.hh \
 	MergedBeam.hh NCWriter.hh NetReader.hh PB_Beam.hh \
 	PB_BeamSource.hh PhaseRelayer.hh Receiver.hh \
 	VIRAQ_Beam.hh V_BeamSource.hh \
