@@ -1,5 +1,5 @@
 // DataType.cc
-// Tools for bistatic data typing
+// Enumerated type for bistatic data typing
 //
 // Copyright © 1999 Binet Incorporated
 //
@@ -37,19 +37,19 @@ MakeFloatArray( const void *rawdata, DataType type, int step, float scale,
 	
 	switch (type)
 	{
-	  case DT_Float:
+	  case DataType::FLOAT:
 	    fdata[i] = LE_Float( c ).Value();
 	    break;
-	  case DT_Long:
+	  case DataType::INT32:
 	    fdata[i] = LE_Long( c ).Value();
 	    break;
-	  case DT_Short:
+	  case DataType::INT16:
 	    fdata[i] = LE_Short( c ).Value();
 	    break;
-	  case DT_UnsignedChar:
+	  case DataType::UINT8:
 	    fdata[i] = LE_UChar( c ).Value();
 	    break;
-	  case DT_Char:
+	  case DataType::INT8:
 	    fdata[i] = LE_Char( c ).Value();
 	    break;
 	}

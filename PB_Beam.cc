@@ -1,21 +1,23 @@
+// PB_Beam.cc
+// This is the form of the PIRAQ bistatic beam
 //
-// $Id: PB_Beam.cc,v 1.1 2000/08/29 21:24:03 burghart Exp $
+// Copyright © 1998 Binet Incorporated
+// Copyright © 1998 University Corporation for Atmospheric Research
 //
-// Copyright (C) 1998
-// Binet Incorporated 
-//       and 
-// University Corporation for Atmospheric Research
-// 
-// All rights reserved
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
+//       http://www.apache.org/licenses/LICENSE-2.0
 //
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
 # include <stdio.h>
 # include <unistd.h>
 # include <string.h>
@@ -293,7 +295,7 @@ PB_Beam::VelRaw( DataType *type, int *step, float *scale, float *offset ) const
 
     if ((byteoffset = OffsetToField( PBFld_V )) >= 0)
     {
-	*type = DT_Char;
+	*type = DataType::INT8;
 	*step = 1;
 	*scale = _C_ / (2.0 * Frequency() * PRT() * 255);
 	*offset = 0.0;
@@ -325,7 +327,7 @@ PB_Beam::dBmRaw( DataType *type, int *step, float *scale, float *offset ) const
 //
     if ((byteoffset = OffsetToField( PBFld_P )) >= 0)
     {
-	*type = DT_UnsignedChar;
+	*type = DataType::UINT8;
 	*step = 1;
 	*scale = 0.5;
 	*offset = -127.0;
@@ -339,7 +341,7 @@ PB_Beam::dBmRaw( DataType *type, int *step, float *scale, float *offset ) const
     //
     // Return the unpacked array
     //
-	*type = DT_UnsignedChar;
+	*type = DataType::UINT8;
 	*step = 1;
 	*scale = 0.5;
 	*offset = -127.0;
@@ -367,7 +369,7 @@ PB_Beam::NCPRaw( DataType *type, int *step, float *scale, float *offset ) const
     //
     // Return the unpacked array
     //
-	*type = DT_UnsignedChar;
+	*type = DataType::UINT8;
 	*step = 1;
 	*scale = 1.0 / 255.0;
 	*offset = 0.0;
@@ -401,7 +403,7 @@ PB_Beam::Info( void ) const
 	{
 	    if (strlen( flds ) > 0)
 		strcat( flds, "," );
-	    strcat( flds, PBFormatInfo[bit].name );
+	    strcat( flds, PBFormatInfo[bit].name.c_str() );
 	}
     }
 

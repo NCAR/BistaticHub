@@ -1,21 +1,23 @@
+// VIRAQ_Beam.cc
+// This is the form of the PIRAQ bistatic beam
 //
-// $Id: VIRAQ_Beam.cc,v 1.1 2000/08/29 21:24:06 burghart Exp $
 //
-// Copyright (C) 1998
-// Binet Incorporated 
-//       and 
-// University Corporation for Atmospheric Research
-// 
-// All rights reserved
+// Copyright © 1998 Binet Incorporated
+// Copyright © 1998 University Corporation for Atmospheric Research
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
 //
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
 
 # include <stdio.h>
 # include <unistd.h>
@@ -408,7 +410,7 @@ const void*
 VIRAQ_Beam::VelRaw( DataType *type, int *step, float *scale, 
 		    float *offset ) const
 {
-    *type = DT_Float;
+    *type = DataType::FLOAT;
     *scale = 1.0;
     *offset = 0.0;
 
@@ -433,7 +435,7 @@ const void*
 VIRAQ_Beam::dBZRaw( DataType *type, int *step, float *scale, 
 		    float *offset ) const
 {
-    *type = DT_Float;
+    *type = DataType::FLOAT;
     *scale = 1.0;
     *offset = 0.0;
 
@@ -458,7 +460,7 @@ const void*
 VIRAQ_Beam::dBmRaw( DataType *type, int *step, float *scale, 
 		    float *offset ) const
 {
-    *type = DT_Float;
+    *type = DataType::FLOAT;
     *scale = 1.0;
     *offset = 0.0;
 
@@ -483,7 +485,7 @@ const void*
 VIRAQ_Beam::NCPRaw( DataType *type, int *step, float *scale, 
 		    float *offset ) const
 {
-    *type = DT_Float;
+    *type = DataType::FLOAT;
     *scale = 1.0;
     *offset = 0.0;
 

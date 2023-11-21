@@ -1,29 +1,32 @@
+// MergedBeam.cc
+// This is the form of a merged bistatic beam
 //
-// $Id: MergedBeam.cc,v 1.1 2000/08/29 21:24:01 burghart Exp $
+// Copyright © 2000 Binet Incorporated
 //
-// Copyright (C) 2000
-// Binet Incorporated 
-// 
-// All rights reserved
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
+//       http://www.apache.org/licenses/LICENSE-2.0
 //
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
 
-# include <stdio.h>
-# include <string.h>
-# include <math.h>
+
+# include <cstdio>
+# include <cstring>
+# include <cmath>
 # include "MergedBeam.hh"
 # include "Receiver.hh"
 
 inline float RAD_TO_DEG( float x ) { return( 180.0 * x / M_PI ); }
 inline float DEG_TO_RAD( float x ) { return( M_PI * x / 180.0 ); }
-const float _C_ = 2.998e8;
+const float _C_ = 2.99792458e8; // speed of light, m/s
 
 
 

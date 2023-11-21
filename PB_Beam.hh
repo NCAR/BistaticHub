@@ -1,27 +1,27 @@
-//
-// $Id: PB_Beam.hh,v 1.1 2000/08/29 21:24:04 burghart Exp $
-//
+// PB_Beam.hh
 // This is the form of the PIRAQ bistatic beam
 //
-// Copyright (C) 1998
-// Binet Incorporated 
-//       and 
-// University Corporation for Atmospheric Research
-// 
-// All rights reserved
+// Copyright © 1998 Binet Incorporated
+// Copyright © 1998 University Corporation for Atmospheric Research
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
 //
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
 
 # ifndef _PB_BEAM_HH_
 # define _PB_BEAM_HH_
 
+# include <string>
 # include <values.h>
 # include "Beam.hh"
 # include "LE_Unpack.hh"	// little-endian types
@@ -70,7 +70,7 @@ enum PBF_BitID	// Bit ID's so that we can refer to each by a name
 
 static const struct _PBFormatInfo
 {
-    char* name;
+    std::string name;
     int bytes_per_gate;
 } PBFormatInfo[8] =
 {
@@ -157,7 +157,7 @@ private:
 // simple beam structure: header + data
 //
     PB_Hdr Hdr;
-    void* Data;
+    char* Data;
 //
 // pointer to our Receiver info
 //

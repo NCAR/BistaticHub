@@ -1,5 +1,5 @@
 // DataType.hh
-// Tools for bistatic data typing
+// Enumerated type for bistatic data typing
 //
 // Copyright © 1998 Binet Incorporated
 // Copyright © 1998 University Corporation for Atmospheric Research
@@ -25,20 +25,19 @@
 #include <map>
 
 // Data types we might return
-enum DataType {
-    DT_Double, DT_Float, DT_Long, DT_UnsignedShort, DT_Short,
-    DT_UnsignedChar, DT_Char
+enum class DataType {
+    DOUBLE, FLOAT, INT32, UINT16, INT16, UINT8, INT8
 };
 
 // map from each of the data types above to its associated size in bytes
 static const std::map<DataType, std::size_t> DataTypeLen {
-    { DT_Double, sizeof(double) },
-    { DT_Float, sizeof(float) },
-    { DT_Long, sizeof(long) },
-    { DT_UnsignedShort, sizeof(uint16_t) },
-    { DT_Short, sizeof(int16_t) },
-    { DT_UnsignedChar, sizeof(uint8_t) },
-    { DT_Char, sizeof(int8_t) }
+    { DataType::DOUBLE, sizeof(double) },
+    { DataType::FLOAT, sizeof(float) },
+    { DataType::INT32, sizeof(long) },
+    { DataType::UINT16, sizeof(uint16_t) },
+    { DataType::INT16, sizeof(int16_t) },
+    { DataType::UINT8, sizeof(uint8_t) },
+    { DataType::INT8, sizeof(int8_t) }
 };
 
 // Convert an array of one of our data types to an array of floats.
