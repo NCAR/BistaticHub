@@ -1,0 +1,965 @@
+#This file was created by <burghart> Thu Mar  9 23:11:54 2000
+#LyX 1.0 (C) 1995-1999 Matthias Ettrich and the LyX Team
+\lyxformat 2.15
+\textclass book
+\language default
+\inputencoding default
+\fontscheme default
+\graphics default
+\float_placement htbp
+\paperfontsize default
+\spacing single 
+\papersize Default
+\paperpackage a4
+\use_geometry 0
+\use_amsmath 0
+\paperorientation portrait
+\secnumdepth 2
+\tocdepth 2
+\paragraph_separation indent
+\defskip medskip
+\quotes_language english
+\quotes_times 2
+\papercolumns 1
+\papersides 2
+\paperpagestyle headings
+
+\layout Title
+
+Bistatic Radar Hub System
+\layout Author
+
+Chris Burghart 
+\newline 
+Binet, Inc.
+\layout Date
+
+3 December 1999
+\layout Standard
+
+Copyright 1999 Binet, Inc.
+\layout Standard
+
+All rights reserved
+\layout Standard
+
+
+\begin_inset LatexCommand \tableofcontents{}
+
+\end_inset 
+
+
+\layout Chapter
+
+
+\begin_inset LatexCommand \label{chap:overview}
+
+\end_inset 
+
+System Overview
+\layout Section
+
+System Block Diagram
+\layout Standard
+\noindent 
+This document describes the structure and use of the bistatic radar system's
+ hub computer.
+ The complete bistatic radar system is comprised of a normal radar transmitter/r
+eceiver system (the radar), one or more remote bistatic receivers, and a
+ hub computer for combining and displaying the information from all of the
+ receivers.
+ Figure 
+\begin_inset LatexCommand \ref{fig: blockdiag}
+
+\end_inset 
+
+ shows a block diagram of the system architecture.
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 148 79
+file BlockDiagram.eps
+width 4 50
+flags 9
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: blockdiag}
+
+\end_inset 
+
+block diagram of a bistatic radar system
+\end_float 
+ Note that the 
+\begin_inset Quotes eld
+\end_inset 
+
+per bistatic receiver
+\begin_inset Quotes erd
+\end_inset 
+
+ block consisting of the bistatic receiver/processor and the communications
+ hardware for that receiver may be replicated one or more times depending
+ on how many bistatic receivers are in the system.
+ Also note that although the connection between the local radar network
+ and the bistatic receivers is shown as implemented using ISDN, any TCP/IP
+ connection between the two can be used.
+ For example, this could be a direct network connection or a PPP connection
+ via radio frequency modems.
+ The type of connection can also be different for each bistatic receiver.
+ Hence, the hardware communication architecture connecting the machines
+ of the bistatic radar system is very flexible.
+\layout Section
+
+Data Paths
+\layout Standard
+
+The data paths among the machines in the system are as follows:
+\layout Quote
+
+radar 
+\size scriptsize 
+
+\begin_inset Formula \( _{\overrightarrow{phases}} \)
+\end_inset 
+
+ 
+\size default 
+bistatic hub 
+\size scriptsize 
+
+\begin_inset Formula \( _{\overrightarrow{phases}} \)
+\end_inset 
+
+ 
+\size default 
+bistatic receiver(s)
+\layout Quote
+
+radar 
+\size scriptsize 
+
+\begin_inset Formula \( _{\overrightarrow{data}} \)
+\end_inset 
+
+ 
+\size default 
+bistatic hub
+\layout Quote
+
+bistatic receiver(s) 
+\size scriptsize 
+
+\begin_inset Formula \( _{\overrightarrow{data}} \)
+\end_inset 
+
+ 
+\size default 
+bistatic hub
+\layout Quote
+
+bistatic hub 
+\size scriptsize 
+
+\begin_inset Formula \( _{\overrightarrow{commands}} \)
+\end_inset 
+
+ 
+\size default 
+radar and bistatic receiver(s)
+\layout Standard
+
+and all of the data are transmitted as UDP datagram packets over a TCP/IP
+ network.
+ The first data path shown, transmitting pulse phases from the radar to
+ the bistatic hub and then to the receivers, is done as a two step process
+ so that the radar need not have specific information about the number of
+ receivers or their addresses.
+ The second and third data paths shown simply move data from all of the
+ receivers, including the radar, to the bistatic hub computer for merging
+ and processing.
+ Finally, there is a data path allowing the bistatic hub to send commands
+ to the radar and to the bistatic receivers.
+\layout Chapter
+
+The Hub Computer
+\layout Section
+
+Overview
+\layout Standard
+
+The 
+\begin_inset Quotes eld
+\end_inset 
+
+hub
+\begin_inset Quotes erd
+\end_inset 
+
+ computer in the bistatic radar system merges data from each of the system's
+ receivers, forwards phase information, performs dual-Doppler wind calculations,
+ writes the calculated data, and provides graphical display.
+ In addition, means are provided for sending some basic commands to any
+ or all of the receivers.
+ Software on the hub can also be used to look at archived data during or
+ after normal operations.
+ Typically the hub machine is located with the radar, but it can be placed
+ anywhere there is sufficient reliable network bandwidth to carry the incoming
+ data.
+ The functions of the bistatic hub machine are implemented by two programs:
+ BistaticHub and xbistat.
+ BistaticHub does most of the work, accepting the incoming data, performing
+ wind calculation, and writing the resulting data stream.
+ The xbistat program displays the bistatic radar data, either in real time
+ with BistaticHub as the data source, or in a post-processing mode using
+ an existing data file as its source.
+ Each of these two programs is described in more detail below.
+\layout Section
+
+The BistaticHub Program
+\layout Standard
+
+The BistaticHub program provides the bistatic radar system's means for calculati
+ng dual-Doppler winds from the multiple radar receivers.
+ At its front end, it accepts data rays sent from the receivers and puts
+ them into a buffer of incoming data.
+ For each arriving ray of data, the buffer is checked to see if previously
+ received rays are available from all other enabled receivers and with matching
+ times.
+ If not, the program simply adds the new data to the buffer and waits for
+ more data.
+ When a time-matched set of rays is found for all receivers, though, wind
+ processing is performed.
+ For each radar/bistatic receiver pair, a gate-by-gate dual-Doppler calculation
+ is done and 
+\begin_inset Formula \( u \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( v \)
+\end_inset 
+
+ wind components for the pair are added to a new output ray.
+ In addition, a 
+\begin_inset Quotes eld
+\end_inset 
+
+best
+\begin_inset Quotes erd
+\end_inset 
+
+ wind is calculated using a weighted average of all the other computed 
+\begin_inset Formula \( u \)
+\end_inset 
+
+ and 
+\begin_inset Formula \( v \)
+\end_inset 
+
+ components.
+ The output ray is written to a storage device and also written to a socket
+ for display by the xbistat program.
+ After generating a new ray, BistaticHub again waits for new data from any
+ of the receivers.
+\layout Subsection
+
+Running BistaticHub
+\layout Standard
+
+The BistaticHub program is actually comprised of two pieces: the main program
+ and its graphical user interface.
+ The program is run simply by starting up the graphical interface, which
+ automatically starts the main program:
+\layout Quote
+
+
+\family typewriter 
+\size small 
+BistaticHub.py [options] &
+\layout Subsection
+
+BistaticHub command line options
+\layout Standard
+
+The command line options for BistaticHub are as follows:
+\layout Quote
+
+
+\family typewriter 
+\size small 
+--base_data_dir
+\family default 
+ 
+\family typewriter 
+<dir>
+\layout Quote
+
+
+\family typewriter 
+\size small 
+--rcvr_info <receiver_information_file>
+\family default 
+ 
+\layout Standard
+\noindent 
+The 
+\family typewriter 
+--base_data_dir
+\family default 
+ option will override the default base data directory, beneath which BistaticHub
+ writes its data files.
+ The default directory is 
+\family typewriter 
+/data
+\family default 
+.
+ The 
+\family typewriter 
+--rcvr_info
+\family default 
+ option will make BistaticHub read a receiver information file different
+ from its default of 
+\family typewriter 
+RcvrInfo
+\family default 
+.
+\layout Subsection
+
+Receiver information file
+\layout Standard
+
+The receiver information file is a required text file which gives some necessary
+ facts about each of the receivers in the bistatic radar system.
+ The file has one line per receiver with exactly five elements per line,
+ each separated by white space: 
+\layout Enumerate
+
+site name for this receiver
+\layout Enumerate
+
+receiver data format (currently either VIRAQ or PIRAQ)
+\layout Enumerate
+
+azimuth from the transmitting radar to this receiver in degrees clockwise
+ from north
+\layout Enumerate
+
+range from the transmitting radar to this receiver in kilometers
+\layout Enumerate
+
+IP address for the receiver's processing computer, in standard dotted-quad
+ notation.
+\layout Standard
+
+Comment lines, marked by a pound sign (
+\family typewriter 
+#
+\family default 
+) in the first character, may be added anywhere within the receiver information
+ file.
+ The first non-comment information
+\emph on 
+ 
+\emph toggle 
+line in the file 
+\emph on 
+must
+\emph toggle 
+ be for the transmitting radar.
+ Figure 
+\begin_inset LatexCommand \ref{fig: rcvrinfofile}
+
+\end_inset 
+
+ shows an example receiver information file for a system with just one bistatic
+ receiving site.
+\begin_float fig 
+\layout Verse
+
+
+\family typewriter 
+# 
+\newline 
+# Site Name
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+ Format
+\protected_separator 
+ Azimuth Range
+\protected_separator 
+
+\protected_separator 
+ IP Address 
+\newline 
+#======================================================= 
+\newline 
+Radar
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+ VIRAQ
+\protected_separator 
+
+\protected_separator 
+ 0.0
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+ 0.0
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+ 192.168.0.2 
+\newline 
+Lichtenau
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+ PIRAQ
+\protected_separator 
+
+\protected_separator 
+ 212.0
+\protected_separator 
+
+\protected_separator 
+ 27.2
+\protected_separator 
+
+\protected_separator 
+
+\protected_separator 
+ 192.168.1.1
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: rcvrinfofile}
+
+\end_inset 
+
+example BistaticHub receiver information file
+\end_float 
+\layout Subsection
+
+The BistaticHub window
+\layout Standard
+
+Once BistaticHub has successfully read its receiver information file, it
+ displays a single window with a receiver status and information section
+ at the top, a text area for displaying log messages, and some control buttons
+ at the bottom of the window.
+ Figure 
+\begin_inset LatexCommand \ref{fig: BistaticHub}
+
+\end_inset 
+
+ shows the BistaticHub interface window.
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 297 170
+file BistaticHub.eps
+width 4 100
+flags 11
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: BistaticHub}
+
+\end_inset 
+
+the BistaticHub window
+\end_float 
+ 
+\layout Standard
+
+The top of the window is divided into sections by receiver.
+ For each receiver, the receiver site name is shown, in black if the receiver
+ is enabled or in gray if the receiver is currently disabled.
+ The name is followed by a button which toggles the enabled
+\emph on 
+/
+\emph toggle 
+disabled state of the receiver.
+ An enabled receiver is expected to be sending data to the hub computer;
+ BistaticHub will not generate a ray of data with dual-Doppler winds until
+ it has rays of data for a given time from 
+\emph on 
+all
+\emph toggle 
+ enabled receivers.
+ Hence, a receiver which is not currently sending data must be disabled
+ for BistaticHub to generate rays.
+ Note that the transmitting radar is 
+\emph on 
+always
+\emph toggle 
+ in the enabled state and that clicking the enabled/disabled button for
+ the radar has no effect.
+ Following the enable/disable button is status information for the receiver
+ showing times from incoming data on the upper line and the first eight
+ gates of reflectivity and velocity data below.
+ If data are not incoming from an enabled receiver, the status line will
+ indicate in red how long it has been since data have been received.
+\layout Standard
+
+The middle of the window is a text area which logs various informational
+ messages.
+ Unexpected events will be reported here, as will debugging messages when
+ debugging is enabled.
+ If an abnormal exit occurs, the contents of the log area will be written
+ to a file named 
+\family typewriter 
+BistaticHub.log
+\family default 
+.
+\layout Standard
+
+The bottom of the window has control buttons: Hub Recording, Debug Level,
+ Send Command, and Shut Down.
+ The Hub Recording button shows whether data are currently being recorded
+ on the hub, and will toggle recording on or off if pushed.
+ The Debug Level button shows the current debugging level, and when pushed
+ will pop up a window allowing the user to set the debug level.
+ Debug level 0 prints the minimum amount of information, with information
+ increasing through levels 1, 2, and 3.
+ See Section 
+\begin_inset LatexCommand \ref{sec: statusinfo}
+
+\end_inset 
+
+ below for a description of debug levels and status information.
+ The Send Command button pops up a window allowing text commands to be sent
+ to any or all of the receivers; see receiver documentation for allowed
+ commands.
+ Finally, the Shut Down button will shut down BistaticHub.
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec: statusinfo}
+
+\end_inset 
+
+Status information
+\layout Standard
+
+The status information portion of the BistaticHub window displays useful
+ information, with more information being shown as the debug level is increased.
+ At debug level zero, only critical messages will be displayed; this should
+ be sufficient information under most operating conditions.
+ All other debug levels will show the same information as level zero, but
+ extra information is added.
+ At debug level one, a number representing the source receiver will be printed
+ for each complete ray coming in to BistaticHub.
+ The receivers are numbered in the order they appear in the receiver information
+ file, starting with zero for the transmitting radar.
+ This allows basic confirmation of data flow into the program.
+ Debug level two is similar to the previous level, but it will also print
+ a lower-case letter identifying the receiver for each packet which comes
+ into BistaticHub.
+ The letters assigned to each receiver are again in the order of the receiver
+ information file, with the radar being 
+\begin_inset Quotes eld
+\end_inset 
+
+
+\family typewriter 
+a
+\family default 
+.
+\begin_inset Quotes erd
+\end_inset 
+
+ Finally, at debug level three, very complete information is printed about
+ the data coming into BistaticHub.
+ A line of text is printed for each incoming ray, identifying its source
+ and either labelling it as bad, or printing a number of pieces of information
+ from the ray such as pulsewidth and number of gates.
+ It is recommended that debug levels greater than zero be used only when
+ debugging specific problems, since a great deal of I/O is generated by
+ the higher debug levels.
+\layout Section
+
+The xbistat Program
+\layout Standard
+
+The xbistat program provides graphical display of the data generated by
+ the BistaticHub program.
+ It is generally run in real-time whenever BistaticHub is running.
+ It can also be run separate from BistaticHub to display data files generated
+ by BistaticHub.
+ The program is usually run in the background via one of the commands:
+\layout Quote
+
+
+\family typewriter 
+\size small 
+xbistat [options] &
+\hfill 
+
+\family default 
+(for real-time)
+\layout Quote
+
+
+\family typewriter 
+\size small 
+xbistat [options] <data_file> &
+\family default 
+
+\hfill 
+(for looking at existing files)
+\layout Standard
+
+In the second mode, 
+\family typewriter 
+<data_file>
+\family default 
+ is simply the name of the BistaticHub data file to be viewed.
+ For other command line options, see Section 
+\begin_inset LatexCommand \ref{sec: xbistatoptions}
+
+\end_inset 
+
+ below.
+ When it is run, xbistat pops up a single window as shown in Figure 
+\begin_inset LatexCommand \ref{fig: xbistat}
+
+\end_inset 
+
+.
+\begin_float fig 
+\layout Standard
+\align center 
+
+\begin_inset Figure size 297 222
+file xbistat.eps
+width 4 100
+flags 10
+
+\end_inset 
+
+
+\layout Caption
+
+
+\begin_inset LatexCommand \label{fig: xbistat}
+
+\end_inset 
+
+the xbistat window
+\end_float 
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec: xbistatoptions}
+
+\end_inset 
+
+xbistat command line options
+\layout Standard
+
+There are a few command line options for controlling the initial display
+ state of xbistat:
+\layout Quote
+
+
+\family typewriter 
+\size small 
+-x
+\family default 
+, 
+\family typewriter 
+--xcenter <xval>
+\hfill 
+
+\family default 
+x center w.r.t.
+ the radar, in km (default 0)
+\layout Quote
+
+
+\family typewriter 
+\size small 
+-y
+\family default 
+, 
+\family typewriter 
+--ycenter <yval>
+\hfill 
+
+\family default 
+y center w.r.t.
+ the radar, in km (default 0)
+\layout Quote
+
+
+\family typewriter 
+\size small 
+-p
+\family default 
+, 
+\family typewriter 
+--pixels_per_km <pval>
+\hfill 
+
+\family default 
+magnification, in pixels/km (default 2.5)
+\layout Quote
+
+
+\family typewriter 
+\size small 
+-i
+\family default 
+, 
+\family typewriter 
+--init_file <file>
+\hfill 
+
+\family default 
+initialization file (none by default)
+\layout Standard
+
+Section 
+\begin_inset LatexCommand \ref{sec: xbistatinit}
+
+\end_inset 
+
+ below describes the format of the optional initialization file.
+\layout Subsection
+
+
+\begin_inset LatexCommand \label{sec: xbistatinit}
+
+\end_inset 
+
+Optional initialization file
+\layout Standard
+
+Using the 
+\family typewriter 
+--init_file
+\family default 
+ command line option, xbistat can be given a text file to read for setting
+ initial conditions.
+ This initialization file can contain the following commands, which parallel
+ the command line options described above:
+\layout Quote
+
+
+\family typewriter 
+\size small 
+xcenter <xval>
+\layout Quote
+
+
+\family typewriter 
+\size small 
+ycenter <yval>
+\layout Quote
+
+
+\family typewriter 
+\size small 
+pixels_per_km <pval>
+\layout Standard
+
+The commands must be one per line and must begin at the first character
+ of the line.
+\layout Subsection
+
+Controlling xbistat
+\layout Standard
+
+When xbistat starts up, it will be displaying a raster data field overlaid
+ with wind vectors.
+ The display is centered on the radar and will show a fairly wide area of
+ view.
+ Means are provided, via mouse button clicks and single key commands, for
+ changing the fields and area displayed as xbistat runs.
+ Table 
+\begin_inset LatexCommand \ref{tab: xbistatcmds}
+
+\end_inset 
+
+ shows the available xbistat commands.
+ Letter case is important here; some letters are used in both upper and
+ lower case for different commands.
+\begin_float tab 
+\layout Standard
+\align center \LyXTable
+multicol5
+16 2 0 0 -1 -1 -1 -1
+1 0 0 0
+1 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 0 0 0
+0 1 0 0
+8 1 0 "" ""
+2 1 1 "" ""
+0 8 1 0 0 0 0 "" ""
+0 2 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 2 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 2 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 2 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 2 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 2 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 2 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+0 8 0 1 0 0 0 "" ""
+
+key
+\newline 
+Action
+\newline 
+(left mouse button)
+\newline 
+move center of display to the point under the cursor
+\newline 
+(space)
+\newline 
+stop or resume display update
+\newline 
+(up arrow)
+\newline 
+change to the next available raster field
+\newline 
+(down arrow)
+\newline 
+change to the previous available raster field
+\newline 
+(right arrow)
+\newline 
+change to the next available wind field
+\newline 
+(left arrow)
+\newline 
+change to the previous available wind field
+\newline 
+c
+\newline 
+clear the raster portion of the display
+\newline 
+C
+\newline 
+clear the vector portion of the display
+\newline 
+q
+\newline 
+quit the xbistat program
+\newline 
+r
+\newline 
+toggle display of the raster field
+\newline 
+u
+\newline 
+decrease magnification (unzoom) by a factor of 1.2
+\newline 
+U
+\newline 
+decrease magnification (unzoom) by a factor of 2.0
+\newline 
+w
+\newline 
+toggle display of the vectors (winds)
+\newline 
+z
+\newline 
+increase magnification (zoom) by a factor of 1.2
+\newline 
+Z
+\newline 
+increase magnification (zoom) by a factor of 2.0
+\layout Caption
+
+
+\begin_inset LatexCommand \label{tab: xbistatcmds}
+
+\end_inset 
+
+xbistat commands
+\end_float 
+ 
+\the_end
