@@ -1,28 +1,32 @@
+// BistaticHub.cc
+// This is the BistaticHub program for collecting and processing bistatic radar data
 //
-// $Id: BistaticHub.cc,v 1.3 2001/08/28 16:25:38 burghart Exp $
+// Copyright © 1999 Binet Incorporated
+// Copyright © 1999 University Corporation for Atmospheric Research
 //
-// Copyright (C) 1999
-// Binet Incorporated 
-//       and 
-// University Corporation for Atmospheric Research
-// 
-// All rights reserved
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
+//       http://www.apache.org/licenses/LICENSE-2.0
 //
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
 
-# include <stdio.h>
+
+
+# include <cassert>
+# include <cstdio>
 # include <unistd.h>
-# include <math.h>
-# include <errno.h>
+# include <cmath>
+# include <cerrno>
 # include <ctype.h>
-# include <signal.h>
+# include <csignal>
 # include <dirent.h>
 # include <fcntl.h>
 # include <getopt.h>
@@ -40,6 +44,8 @@
 # include "Receiver.hh"
 # include "NCWriter.hh"
 # include "PhaseRelayer.hh"
+
+#include "config.h"
 
 # define GEN_XMTR_INFO 1	// Do we need to generate xmitter info packets?
 # if GEN_XMTR_INFO
@@ -128,7 +134,7 @@ static void NudgeClients( const char* filename, int index );
 
 
 
-main( int argc, char *argv[] )
+int main( int argc, char *argv[] )
 {
 //
 // Force stdout to be line buffered.  This is the default in general, but we

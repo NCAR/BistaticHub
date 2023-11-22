@@ -1,6 +1,7 @@
 #include        <math.h>
 
 #include  <stdio.h>
+#include  <stdlib.h>
 
 #include        "globals.h"
 #define NO_Test_HV_Corr

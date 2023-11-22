@@ -1,37 +1,23 @@
-//
-// $Id: LE_Unpack.hh,v 1.1 2000/08/29 21:24:01 burghart Exp $
-//
-// Copyright (C) 1998
-// Binet Incorporated 
-//       and 
-// University Corporation for Atmospheric Research
-// 
-// All rights reserved
-//
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
-//
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
-//
-//
-//
+// LE_Unpack.hh
 // Little-endian data classes which can have arbitrary byte alignments
 //
-// Each class provides:
+// Copyright © 1998 Binet Incorporated
+// Copyright © 1998 University Corporation for Atmospheric Research
 //
-//	o  a constructor
-//	o  Value() function to unpack its value to the local representation
-//	o  PutValue() function to pack a local representation value into
-//		the object's little endian representation
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// This implementation assumes that the compiler doesn't add any "hidden"
-// stuff to the size of our classes, and will align these classes on any
-// byte boundary since their only member variables are character arrays.
-// It works under g++. (No guarantees anywhere else...)
 //
+//       http://www.apache.org/licenses/LICENSE-2.0
+//
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
 # ifndef _LE_UNPACK_HH_
 # define _LE_UNPACK_HH_
 

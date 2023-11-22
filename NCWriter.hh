@@ -1,20 +1,22 @@
+// NCWriter.hh
+// BistaticHub netCDF writer class
 //
-// $Id: NCWriter.hh,v 1.2 2001/08/28 16:28:25 burghart Exp $
-// netCDF writer class
+// Copyright © 2000 Binet Incorporated
 //
-// Copyright (C) 2000
-// Binet Incorporated 
-// 
-// All rights reserved
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
+//       http://www.apache.org/licenses/LICENSE-2.0
 //
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
 # ifndef _NCWRITER_HH_
 # define _NCWRITER_HH_
 
@@ -39,7 +41,7 @@ private:
     int NumRcvrs;
     int NCid;
     int BaseTime;
-    int TimeIndex;
+    size_t TimeIndex;
     int MaxCells;
 // dimensions
     int	TimeDim;
@@ -61,16 +63,16 @@ private:
     int CurrentSweep;
     long Filesize;
 // general constants
-    static const float FBADVAL = -MAXFLOAT;
-    static const short SBADVAL = MINSHORT;
-    static const float _C_ = 2.998e8;
-// constants for scaling float values to shorts
-    static const float PWRSCALE = 0.01;
-    static const float PWROFFSET = 0.0;
-    static const float VELSCALE = 0.01;
-    static const float VELOFFSET = 0.0;
-    static const float NCPSCALE = 0.01;
-    static const float NCPOFFSET = 0.0;
+    static constexpr float FBADVAL = -MAXFLOAT;
+    static constexpr int16_t SBADVAL = MINSHORT;
+    static constexpr float _C_ = 2.998e8;
+// constants for scaling float values to int16_ts
+    static constexpr float PWRSCALE = 0.01;
+    static constexpr float PWROFFSET = 0.0;
+    static constexpr float VELSCALE = 0.01;
+    static constexpr float VELOFFSET = 0.0;
+    static constexpr float NCPSCALE = 0.01;
+    static constexpr float NCPOFFSET = 0.0;
 //
 // Private methods
 //
@@ -85,8 +87,8 @@ private:
 		const void* fillval );
     int DefShortVar( const char* name, int ndims, const int* dims, 
 		     const char* longname, const char* comment, 
-		     const char* units, const short validrange[2], 
-		     short missingval, short fillval, int system_index, 
+		     const char* units, const int16_t validrange[2],
+		     int16_t missingval, int16_t fillval, int system_index,
 		     float scale, float offset );
     int DefIntVar( const char* name, int ndims, const int* dims, 
 		   const char* longname, const char* comment, 

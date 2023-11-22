@@ -1,25 +1,27 @@
+// NCWriter.cc
+// BistaticHub netCDF writer class
 //
-// $Id: NCWriter.cc,v 1.2 2001/08/28 16:27:36 burghart Exp $
-// netCDF file writer class
+// Copyright © 2000 Binet Incorporated
 //
-// Copyright (C) 2000
-// Binet Incorporated 
-// 
-// All rights reserved
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
+//       http://www.apache.org/licenses/LICENSE-2.0
 //
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
 
-# include <stdio.h>
-# include <stdlib.h>
+# include <cstdio>
+# include <cstdlib>
 # include <netcdf.h>
-# include <string.h>
+# include <string>
+# include <cstring>
 # include <sys/stat.h>
 # include <unistd.h>
 # include "NCWriter.hh"
@@ -41,16 +43,32 @@ NCWriter::NCErrTest( int status )
 
 
 
-NCWriter::NCWriter( const char* dir, int temponly )
-{
-    BaseDir = new char[strlen( dir ) + 1];
-    TempOnly = temponly;
-    strcpy( BaseDir, dir );
-    NCid = -1;
-    CurrentVolume = CurrentSweep = -1;
-
-    ZVars = VelVars = NCPVars = UVars = VVars = 0;
-}
+NCWriter::NCWriter( const char* dir, int temponly ) :
+    BaseDir(strdup(dir)),
+    FName(),
+    TempOnly(temponly),
+    NumRcvrs(0),
+    NCid(-1),
+    BaseTime(0),
+    TimeIndex(-1),
+    MaxCells(-1),
+    TimeDim(-1),
+    GateDim(-1),
+    RcvrDim(-1),
+    AzVar(-1),
+    ElVar(-1),
+    TimeVar(-1),
+    ZVars(0),
+    VelVars(0),
+    NCPVars(0),
+    UVars(0),
+    VVars(0),
+    UBestVar(-1),
+    VBestVar(-1),
+    CurrentVolume(-1),
+    CurrentSweep(-1),
+    Filesize(-1)
+{}
 
 
 
@@ -131,7 +149,7 @@ NCWriter::Write( const MergedBeam* mb )
 // best u and best v
 //
     float* fdata = new float[MaxCells];
-    short* sdata = new short[MaxCells];
+    int16_t* sdata = new int16_t[MaxCells];
     int gate;
     int ngates = mb->Gates( 0 );
 
@@ -141,7 +159,7 @@ NCWriter::Write( const MergedBeam* mb )
     for (int gate = 0; gate < ngates; gate++)
     {
 	if (fdata[gate] != FBADVAL)
-	    sdata[gate] = (short)((fdata[gate] - VELOFFSET) / VELSCALE);
+	    sdata[gate] = (int16_t)((fdata[gate] - VELOFFSET) / VELSCALE);
 	else
 	    sdata[gate] = SBADVAL;
     }
@@ -153,7 +171,7 @@ NCWriter::Write( const MergedBeam* mb )
     for (int gate = 0; gate < ngates; gate++)
     {
 	if (fdata[gate] != FBADVAL)
-	    sdata[gate] = (short)((fdata[gate] - VELOFFSET) / VELSCALE);
+	    sdata[gate] = (int16_t)((fdata[gate] - VELOFFSET) / VELSCALE);
 	else
 	    sdata[gate] = SBADVAL;
     }
@@ -232,17 +250,17 @@ NCWriter::Write( const MergedBeam* mb )
 		exit( 1 );
 	    }
 	//	
-	// Scale the floating point data into shorts
+	// Scale the floating point data into int16_t
 	//
 	    for (int gate = 0; gate < ngates; gate++)
 	    {
 		if (fdata[gate] != FBADVAL)
-		    sdata[gate] = (short)((fdata[gate] - offset) / scale);
+		    sdata[gate] = (int16_t)((fdata[gate] - offset) / scale);
 		else
 		    sdata[gate] = SBADVAL;
 	    }
 	//
-	// Write the short array
+	// Write the int16_t array
 	//
 	    count[1] = ngates;
 	    NCErrTest( nc_put_vara_short( NCid, varid, index, count, sdata ) );
@@ -327,9 +345,10 @@ NCWriter::CloseFile( void )
 int
 NCWriter::DoDefinitions( const MergedBeam* mb )
 {
-    int r, status;
+    size_t r;
+    int status;
     int irange[2], imissing, ifill;
-    short srange[2], smissing, sfill;
+    int16_t srange[2], smissing, sfill;
     double drange[2], dmissing, dfill;
     float frange[2], fmissing, ffill;
     
@@ -652,7 +671,7 @@ NCWriter::DefVar( const char* name, nc_type type, int ndims, const int* dims,
 	{
 	  case NC_SHORT:
 	    NCErrTest( nc_put_att_short( NCid, var, "valid_range", NC_SHORT, 
-					 2, (short*)validrange ) );
+					 2, (int16_t*)validrange ) );
 	    break;
 	  case NC_INT:
 	    NCErrTest( nc_put_att_int( NCid, var, "valid_range", NC_INT, 
@@ -679,7 +698,7 @@ NCWriter::DefVar( const char* name, nc_type type, int ndims, const int* dims,
 	{
 	  case NC_SHORT:
 	    NCErrTest( nc_put_att_short( NCid, var, "missing_value", NC_SHORT,
-					 1, (short*)missingval ) );
+					 1, (int16_t*)missingval ) );
 	    break;
 	  case NC_INT:
 	    NCErrTest( nc_put_att_int( NCid, var, "missing_value", NC_INT,
@@ -707,7 +726,7 @@ NCWriter::DefVar( const char* name, nc_type type, int ndims, const int* dims,
 	{
 	  case NC_SHORT:
 	    NCErrTest( nc_put_att_short( NCid, var, "_FillValue", NC_SHORT, 1, 
-					 (short*)fillval ) );
+					 (int16_t*)fillval ) );
 	    break;
 	  case NC_INT:
 	    NCErrTest( nc_put_att_int( NCid, var, "_FillValue", NC_INT, 1, 
@@ -752,8 +771,8 @@ NCWriter::DefIntVar( const char* name, int ndims, const int* dims,
 int
 NCWriter::DefShortVar( const char* name, int ndims, const int* dims, 
 		       const char* longname, const char* comment, 
-		       const char* units, const short validrange[2],
-		       short missingval, short fillval, 
+		       const char* units, const int16_t validrange[2],
+		       int16_t missingval, int16_t fillval,
 		       int system_index, float scale,
 		       float offset )
 //
@@ -846,15 +865,15 @@ NCWriter::MakeFileName( const MergedBeam* mb )
 void
 NCWriter::GlobalAttrs( const MergedBeam *mb )
 {
-    char *string;
+    std::string str;
 
-    string = "This file contains one scan of remotely sensed data";
-    NCErrTest( nc_put_att_text( NCid, NC_GLOBAL, "Content", strlen( string ),
-				string ) );
+    str = "This file contains one scan of remotely sensed data";
+    NCErrTest( nc_put_att_text( NCid, NC_GLOBAL, "Content", str.length(),
+				str.c_str() ) );
 
-    string = "NCAR/ATD-NOAA/ETL Scanning Remote Sensor";
+    str = "NCAR/ATD-NOAA/ETL Scanning Remote Sensor";
     NCErrTest( nc_put_att_text( NCid, NC_GLOBAL, "Convention", 
-				strlen( string ), string ) );
+				str.length(), str.c_str() ) );
 
     NCErrTest( nc_put_att_text( NCid, NC_GLOBAL, "Scan_Mode", 
 				strlen( mb->ScanType() ), mb->ScanType() ) );

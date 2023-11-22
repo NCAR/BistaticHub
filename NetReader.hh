@@ -1,39 +1,42 @@
+// NetReader.hh
+// Network reader for monostatic radar data
 //
-// $Id: NetReader.hh,v 1.2 2003/05/05 15:28:25 burghart Exp $
+// Copyright © 1999 Binet Incorporated
+// Copyright © 1999 University Corporation for Atmospheric Research
 //
-// Copyright (C) 1999
-// Binet Incorporated 
-//       and 
-// University Corporation for Atmospheric Research
-// 
-// All rights reserved
+//   Licensed under the Apache License, Version 2.0 (the "License");
+//   you may not use this file except in compliance with the License.
+//   You may obtain a copy of the License at
 //
-// No part of this work covered by the copyrights herein may be reproduced
-// or used in any form or by any means -- graphic, electronic, or mechanical,
-// including photocopying, recording, taping, or information storage and
-// retrieval systems -- without permission of the copyright owners.
 //
-// This software and any accompanying written materials are provided "as is"
-// without warranty of any kind.
+//       http://www.apache.org/licenses/LICENSE-2.0
 //
+//
+//   Unless required by applicable law or agreed to in writing, software
+//   distributed under the License is distributed on an "AS IS" BASIS,
+//   WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+//   See the License for the specific language governing permissions and
+//   limitations under the License.
+
 
 # ifndef _NETREADER_HH_
 # define _NETREADER_HH_
 
+# include <cstdint>
 # include <map>
 # include "Receiver.hh"
 
 //
 // type to map from IP addresses to the associated Receiver
 //
-typedef std::map<unsigned long, Receiver*> ClientMap_t;
+typedef std::map<uint32_t, Receiver*> ClientMap_t;
 
 
 
 class NetReader
 {
 public:
-    NetReader( unsigned short socknum );
+    NetReader( uint16_t socknum );
 // register a client who's expecting data from the net
     int Register( Receiver *client );
 // which file descriptor have we opened?
