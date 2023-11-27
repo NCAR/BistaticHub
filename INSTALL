@@ -1,28 +1,15 @@
 Installation Instructions for 'BistaticHub' and Utilities
 =========================================================
 
-If you already have a "configure" script in this directory, build like this:
+If you don't have a Makefile in this directory, execute the following commands
+to generate it:
 
-$ ./configure
-$ make
+    $ aclocal
+    $ autoconf
+    $ automake
+    $ ./configure
 
-Otherwise, you will need to generate a new "configure" script before following
-the directions above:
+Once you have a Makefile, generate the BistaticHub, pb_fakesource, and
+vb_fakesource programs by executing:
 
-$ autoscan 
-[
-    now edit configure.scan to create configure.in:
-	Add AM_INIT_AUTOMAKE(BistaticHub, 2.0.0) after the AC_INIT line
-	Add AC_PROG_CC under "dnl Checks for programs."
-	Add AC_PROG_CXX under "dnl Checks for programs."
-	Add AC_CHECK_LIB(netcdf, nc_open) under "dnl Checks for libraries."
-	Change AC_OUTPUT() to AC_OUTPUT(Makefile)
-]
-$ aclocal
-$ autoconf (ignore the AC_TRY_RUN warning)
-$ automake --add-missing --foreign
-
-
-
-
-
+    $ make
