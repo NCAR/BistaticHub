@@ -3,8 +3,8 @@
 
 AC_PREREQ([2.71])
 AC_INIT([BistaticHub], [2.0], [BUG-REPORT-ADDRESS])
-AM_INIT_AUTOMAKE([-Wall])
-AC_CONFIG_SRCDIR([Beam.cc])
+AM_INIT_AUTOMAKE([foreign -Wall])
+AC_CONFIG_SRCDIR([BistaticHub.cc])
 AC_CONFIG_HEADERS([config.h])
 
 # Checks for programs.
