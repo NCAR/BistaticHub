@@ -52,7 +52,7 @@
 #	include "VIRAQ_Beam.hh"
 # endif
 
-# include "../display/datanotice.hh"
+# include "datanotice.hh"
 
 ReceiverList_t Rcvrs;
 # define NumRcvrs Rcvrs.size()
