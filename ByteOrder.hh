@@ -18,8 +18,9 @@
 //   limitations under the License.
 
 # include <cstdlib>
-# include <cstdio>
-# include <cassert>
+# include <cstdint>
+# include <iostream>
+# include <iomanip>
 
 typedef enum _ByteOrder
 {
@@ -30,18 +31,18 @@ typedef enum _ByteOrder
 inline ByteOrder
 GetByteOrder(void)
 {
-    assert (sizeof(long) == 4);
-    
     char bytes[] = { 0, 1, 2, 3 };
-    unsigned long x = *(long*)bytes;
+    uint32_t x = *(uint32_t*)bytes;
+
     switch (x)
     {
       case 0x03020100:
-	return LittleEndian;
+          return LittleEndian;
       case 0x00010203:
-	return BigEndian;
+          return BigEndian;
       default:
-	fprintf( stderr, "Weird machine byte order 0x%08x\n", x );
-	exit( 1 );
+          std::cerr << "Weird machine byte order 0x" << std::hex << std::setw(8)
+                    << std::setfill('0') << x << std::endl;
+          exit( 1 );
     }
 }
