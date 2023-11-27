@@ -3,10 +3,24 @@
 aclocal.m4
 autom4te*.cache
 BistaticHub
+compile
 config.cache
+config.h
+config.h.in
 config.log
 config.status
+configure
+configure~
 Makefile
+Makefile.in
 pb_fakesource
 RcvrInfo
+stamp-h1
 vb_fakesource
+
+# Ignore Eclipse-generated files
+.autotools
+.project
+.cproject
+.settings
+# end of Eclipse-generated files
