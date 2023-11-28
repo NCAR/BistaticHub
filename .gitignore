@@ -22,5 +22,6 @@ vb_fakesource
 .autotools
 .project
 .cproject
+.pydevproject
 .settings
 # end of Eclipse-generated files
