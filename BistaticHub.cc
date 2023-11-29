@@ -941,12 +941,12 @@ WriteBeam( const MergedBeam* mb )
 //
     if (! mb)
     {
-	if (ncw)
-	{
-	    delete ncw;
-	    ncw = 0;
-	}
-	return;
+        if (ncw)
+        {
+            delete ncw;
+            ncw = 0;
+        }
+            return;
     }
 //
 // Create a new NCWriter if necessary, forcing temporary files if writing
@@ -954,10 +954,10 @@ WriteBeam( const MergedBeam* mb )
 //
     if (! ncw)
     {
-	if (SaveData)
-	    ncw = new NCWriter( BaseDataDir, 0 );
-	else
-	    ncw = new NCWriter( "/tmp", 1 );
+        if (SaveData)
+            ncw = new NCWriter( BaseDataDir, 0 );
+        else
+            ncw = new NCWriter( "/tmp", 1 );
     }
 //
 // Check our free space once in a while
@@ -967,11 +967,11 @@ WriteBeam( const MergedBeam* mb )
     if (SaveData && ! (check++ % 100) && 
 	! CheckDataSpace( BaseDataDir, minspace ))
     {
-	fprintf( stderr, "Free disk space < %d MB in %s\n", minspace,
-		 BaseDataDir );
-	fprintf( stderr, "Disabling data writing\n" );
-	SetRecordingState( 0 );
-	return;
+        fprintf( stderr, "Free disk space < %d MB in %s\n", minspace,
+             BaseDataDir );
+        fprintf( stderr, "Disabling data writing\n" );
+        SetRecordingState( 0 );
+        return;
     }
 //
 // Don't record if the antenna's not moving.  (This should be selectable
