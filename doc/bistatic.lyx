@@ -1,67 +1,132 @@
-#This file was created by <burghart> Thu Mar  9 23:11:54 2000
-#LyX 1.0 (C) 1995-1999 Matthias Ettrich and the LyX Team
-\lyxformat 2.15
+#LyX 2.3 created this file. For more info see http://www.lyx.org/
+\lyxformat 544
+\begin_document
+\begin_header
+\save_transient_properties true
+\origin unavailable
 \textclass book
-\language default
+\use_default_options false
+\maintain_unincluded_children false
+\language english
+\language_package default
 \inputencoding default
-\fontscheme default
+\fontencoding global
+\font_roman "default" "default"
+\font_sans "default" "default"
+\font_typewriter "default" "default"
+\font_math "auto" "auto"
+\font_default_family default
+\use_non_tex_fonts false
+\font_sc false
+\font_osf false
+\font_sf_scale 100 100
+\font_tt_scale 100 100
+\use_microtype false
+\use_dash_ligatures true
 \graphics default
+\default_output_format default
+\output_sync 0
+\bibtex_command default
+\index_command default
 \float_placement htbp
 \paperfontsize default
-\spacing single 
-\papersize Default
-\paperpackage a4
-\use_geometry 0
-\use_amsmath 0
+\spacing single
+\use_hyperref false
+\papersize default
+\use_geometry false
+\use_package amsmath 1
+\use_package amssymb 1
+\use_package cancel 1
+\use_package esint 0
+\use_package mathdots 0
+\use_package mathtools 1
+\use_package mhchem 0
+\use_package stackrel 1
+\use_package stmaryrd 1
+\use_package undertilde 1
+\cite_engine basic
+\cite_engine_type default
+\biblio_style plain
+\use_bibtopic false
+\use_indices false
 \paperorientation portrait
+\suppress_date false
+\justification true
+\use_refstyle 0
+\use_minted 0
+\index Index
+\shortcut idx
+\color #008000
+\end_index
 \secnumdepth 2
 \tocdepth 2
 \paragraph_separation indent
-\defskip medskip
-\quotes_language english
-\quotes_times 2
+\paragraph_indentation default
+\is_math_indent 0
+\math_numbering_side default
+\quotes_style english
+\dynamic_quotes 0
 \papercolumns 1
 \papersides 2
 \paperpagestyle headings
+\tracking_changes false
+\output_changes false
+\html_math_output 0
+\html_css_as_file 0
+\html_be_strict false
+\end_header
 
-\layout Title
+\begin_body
 
+\begin_layout Title
 Bistatic Radar Hub System
-\layout Author
+\end_layout
 
-Chris Burghart 
-\newline 
-Binet, Inc.
-\layout Date
+\begin_layout Author
+Chris Burghart
+\end_layout
 
-3 December 1999
-\layout Standard
+\begin_layout Date
+11/30/2023
+\end_layout
 
+\begin_layout Standard
 Copyright 1999 Binet, Inc.
-\layout Standard
+\end_layout
 
+\begin_layout Standard
+Copyright 2023 National Center for Atmospheric Research
+\end_layout
+
+\begin_layout Standard
 All rights reserved
-\layout Standard
+\end_layout
+
+\begin_layout Standard
+\begin_inset CommandInset toc
+LatexCommand tableofcontents
+
+\end_inset
 
 
-\begin_inset LatexCommand \tableofcontents{}
+\end_layout
 
-\end_inset 
+\begin_layout Chapter
+\begin_inset CommandInset label
+LatexCommand label
+name "chap:overview"
 
-
-\layout Chapter
-
-
-\begin_inset LatexCommand \label{chap:overview}
-
-\end_inset 
+\end_inset
 
 System Overview
-\layout Section
+\end_layout
 
+\begin_layout Section
 System Block Diagram
-\layout Standard
-\noindent 
+\end_layout
+
+\begin_layout Standard
+\noindent
 This document describes the structure and use of the bistatic radar system's
  hub computer.
  The complete bistatic radar system is comprised of a normal radar transmitter/r
@@ -69,39 +134,56 @@ eceiver system (the radar), one or more remote bistatic receivers, and a
  hub computer for combining and displaying the information from all of the
  receivers.
  Figure 
-\begin_inset LatexCommand \ref{fig: blockdiag}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig: blockdiag"
 
-\end_inset 
+\end_inset
 
  shows a block diagram of the system architecture.
-\begin_float fig 
-\layout Standard
-\align center 
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-\begin_inset Figure size 148 79
-file BlockDiagram.eps
-width 4 50
-flags 9
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename BlockDiagram.eps
+	width 50col%
 
-\end_inset 
-
-
-\layout Caption
+\end_inset
 
 
-\begin_inset LatexCommand \label{fig: blockdiag}
+\end_layout
 
-\end_inset 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig: blockdiag"
+
+\end_inset
 
 block diagram of a bistatic radar system
-\end_float 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
  Note that the 
 \begin_inset Quotes eld
-\end_inset 
+\end_inset
 
 per bistatic receiver
 \begin_inset Quotes erd
-\end_inset 
+\end_inset
 
  block consisting of the bistatic receiver/processor and the communications
  hardware for that receiver may be replicated one or more times depending
@@ -114,66 +196,73 @@ per bistatic receiver
  The type of connection can also be different for each bistatic receiver.
  Hence, the hardware communication architecture connecting the machines
  of the bistatic radar system is very flexible.
-\layout Section
+\end_layout
 
+\begin_layout Section
 Data Paths
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The data paths among the machines in the system are as follows:
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 radar 
-\size scriptsize 
+\size scriptsize
 
-\begin_inset Formula \( _{\overrightarrow{phases}} \)
-\end_inset 
+\begin_inset Formula $_{\overrightarrow{phases}}$
+\end_inset
 
  
-\size default 
+\size default
 bistatic hub 
-\size scriptsize 
+\size scriptsize
 
-\begin_inset Formula \( _{\overrightarrow{phases}} \)
-\end_inset 
+\begin_inset Formula $_{\overrightarrow{phases}}$
+\end_inset
 
  
-\size default 
+\size default
 bistatic receiver(s)
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 radar 
-\size scriptsize 
+\size scriptsize
 
-\begin_inset Formula \( _{\overrightarrow{data}} \)
-\end_inset 
+\begin_inset Formula $_{\overrightarrow{data}}$
+\end_inset
 
  
-\size default 
+\size default
 bistatic hub
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 bistatic receiver(s) 
-\size scriptsize 
+\size scriptsize
 
-\begin_inset Formula \( _{\overrightarrow{data}} \)
-\end_inset 
+\begin_inset Formula $_{\overrightarrow{data}}$
+\end_inset
 
  
-\size default 
+\size default
 bistatic hub
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 bistatic hub 
-\size scriptsize 
+\size scriptsize
 
-\begin_inset Formula \( _{\overrightarrow{commands}} \)
-\end_inset 
+\begin_inset Formula $_{\overrightarrow{commands}}$
+\end_inset
 
  
-\size default 
+\size default
 radar and bistatic receiver(s)
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 and all of the data are transmitted as UDP datagram packets over a TCP/IP
  network.
  The first data path shown, transmitting pulse phases from the radar to
@@ -185,21 +274,24 @@ and all of the data are transmitted as UDP datagram packets over a TCP/IP
  and processing.
  Finally, there is a data path allowing the bistatic hub to send commands
  to the radar and to the bistatic receivers.
-\layout Chapter
+\end_layout
 
+\begin_layout Chapter
 The Hub Computer
-\layout Section
+\end_layout
 
+\begin_layout Section
 Overview
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The 
 \begin_inset Quotes eld
-\end_inset 
+\end_inset
 
 hub
 \begin_inset Quotes erd
-\end_inset 
+\end_inset
 
  computer in the bistatic radar system merges data from each of the system's
  receivers, forwards phase information, performs dual-Doppler wind calculations,
@@ -219,11 +311,13 @@ hub
  with BistaticHub as the data source, or in a post-processing mode using
  an existing data file as its source.
  Each of these two programs is described in more detail below.
-\layout Section
+\end_layout
 
+\begin_layout Section
 The BistaticHub Program
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The BistaticHub program provides the bistatic radar system's means for calculati
 ng dual-Doppler winds from the multiple radar receivers.
  At its front end, it accepts data rays sent from the receivers and puts
@@ -237,331 +331,487 @@ ng dual-Doppler winds from the multiple radar receivers.
  processing is performed.
  For each radar/bistatic receiver pair, a gate-by-gate dual-Doppler calculation
  is done and 
-\begin_inset Formula \( u \)
-\end_inset 
+\begin_inset Formula $u$
+\end_inset
 
  and 
-\begin_inset Formula \( v \)
-\end_inset 
+\begin_inset Formula $v$
+\end_inset
 
  wind components for the pair are added to a new output ray.
  In addition, a 
 \begin_inset Quotes eld
-\end_inset 
+\end_inset
 
 best
 \begin_inset Quotes erd
-\end_inset 
+\end_inset
 
  wind is calculated using a weighted average of all the other computed 
-\begin_inset Formula \( u \)
-\end_inset 
+\begin_inset Formula $u$
+\end_inset
 
  and 
-\begin_inset Formula \( v \)
-\end_inset 
+\begin_inset Formula $v$
+\end_inset
 
  components.
  The output ray is written to a storage device and also written to a socket
  for display by the xbistat program.
  After generating a new ray, BistaticHub again waits for new data from any
  of the receivers.
-\layout Subsection
+\end_layout
 
+\begin_layout Subsection
 Running BistaticHub
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The BistaticHub program is actually comprised of two pieces: the main program
  and its graphical user interface.
  The program is run simply by starting up the graphical interface, which
  automatically starts the main program:
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 BistaticHub.py [options] &
-\layout Subsection
+\end_layout
 
+\begin_layout Subsection
 BistaticHub command line options
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The command line options for BistaticHub are as follows:
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 --base_data_dir
-\family default 
+\family default
  
-\family typewriter 
+\family typewriter
 <dir>
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 --rcvr_info <receiver_information_file>
-\family default 
+\family default
  
-\layout Standard
-\noindent 
+\end_layout
+
+\begin_layout Standard
+\noindent
 The 
-\family typewriter 
+\family typewriter
 --base_data_dir
-\family default 
+\family default
  option will override the default base data directory, beneath which BistaticHub
  writes its data files.
  The default directory is 
-\family typewriter 
+\family typewriter
 /data
-\family default 
+\family default
 .
  The 
-\family typewriter 
+\family typewriter
 --rcvr_info
-\family default 
+\family default
  option will make BistaticHub read a receiver information file different
  from its default of 
-\family typewriter 
+\family typewriter
 RcvrInfo
-\family default 
+\family default
 .
-\layout Subsection
+\end_layout
 
+\begin_layout Subsection
 Receiver information file
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The receiver information file is a required text file which gives some necessary
  facts about each of the receivers in the bistatic radar system.
  The file has one line per receiver with exactly five elements per line,
  each separated by white space: 
-\layout Enumerate
+\end_layout
 
+\begin_layout Enumerate
 site name for this receiver
-\layout Enumerate
+\end_layout
 
+\begin_layout Enumerate
 receiver data format (currently either VIRAQ or PIRAQ)
-\layout Enumerate
+\end_layout
 
+\begin_layout Enumerate
 azimuth from the transmitting radar to this receiver in degrees clockwise
  from north
-\layout Enumerate
+\end_layout
 
+\begin_layout Enumerate
 range from the transmitting radar to this receiver in kilometers
-\layout Enumerate
+\end_layout
 
+\begin_layout Enumerate
 IP address for the receiver's processing computer, in standard dotted-quad
  notation.
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 Comment lines, marked by a pound sign (
-\family typewriter 
+\family typewriter
 #
-\family default 
+\family default
 ) in the first character, may be added anywhere within the receiver information
  file.
- The first non-comment information
-\emph on 
+ The first non-comment information 
+\emph toggle
+line in the file
+\emph default
  
-\emph toggle 
-line in the file 
-\emph on 
+\emph on
 must
-\emph toggle 
- be for the transmitting radar.
+\emph default
+ 
+\emph toggle
+be for the transmitting radar.
  Figure 
-\begin_inset LatexCommand \ref{fig: rcvrinfofile}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig: rcvrinfofile"
 
-\end_inset 
+\end_inset
 
  shows an example receiver information file for a system with just one bistatic
  receiving site.
-\begin_float fig 
-\layout Verse
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
+\begin_layout Verse
 
-\family typewriter 
+\family typewriter
 # 
-\newline 
+\begin_inset Newline newline
+\end_inset
+
 # Site Name
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
  Format
-\protected_separator 
+\begin_inset space ~
+\end_inset
+
  Azimuth Range
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
  IP Address 
-\newline 
+\begin_inset Newline newline
+\end_inset
+
 #======================================================= 
-\newline 
+\begin_inset Newline newline
+\end_inset
+
 Radar
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
  VIRAQ
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
  0.0
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
  0.0
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
  192.168.0.2 
-\newline 
+\begin_inset Newline newline
+\end_inset
+
 Lichtenau
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
  PIRAQ
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
  212.0
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
+
+\begin_inset space ~
+\end_inset
+
  27.2
-\protected_separator 
+\begin_inset space ~
+\end_inset
 
-\protected_separator 
 
-\protected_separator 
+\begin_inset space ~
+\end_inset
+
+
+\begin_inset space ~
+\end_inset
+
  192.168.1.1
-\layout Caption
+\end_layout
 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
 
-\begin_inset LatexCommand \label{fig: rcvrinfofile}
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig: rcvrinfofile"
 
-\end_inset 
+\end_inset
 
 example BistaticHub receiver information file
-\end_float 
-\layout Subsection
+\end_layout
 
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
 The BistaticHub window
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 Once BistaticHub has successfully read its receiver information file, it
  displays a single window with a receiver status and information section
  at the top, a text area for displaying log messages, and some control buttons
  at the bottom of the window.
  Figure 
-\begin_inset LatexCommand \ref{fig: BistaticHub}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig: BistaticHub"
 
-\end_inset 
+\end_inset
 
  shows the BistaticHub interface window.
-\begin_float fig 
-\layout Standard
-\align center 
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-\begin_inset Figure size 297 170
-file BistaticHub.eps
-width 4 100
-flags 11
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename BistaticHub.png
+	width 60col%
 
-\end_inset 
-
-
-\layout Caption
+\end_inset
 
 
-\begin_inset LatexCommand \label{fig: BistaticHub}
+\end_layout
 
-\end_inset 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig: BistaticHub"
+
+\end_inset
 
 the BistaticHub window
-\end_float 
- 
-\layout Standard
+\end_layout
 
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
+ 
+\end_layout
+
+\begin_layout Standard
 The top of the window is divided into sections by receiver.
  For each receiver, the receiver site name is shown, in black if the receiver
  is enabled or in gray if the receiver is currently disabled.
  The name is followed by a button which toggles the enabled
-\emph on 
+\emph on
 /
-\emph toggle 
+\emph toggle
 disabled state of the receiver.
  An enabled receiver is expected to be sending data to the hub computer;
  BistaticHub will not generate a ray of data with dual-Doppler winds until
- it has rays of data for a given time from 
-\emph on 
+ it has rays of data for a given time from
+\emph default
+ 
+\emph on
 all
-\emph toggle 
- enabled receivers.
+\emph default
+ 
+\emph toggle
+enabled receivers.
  Hence, a receiver which is not currently sending data must be disabled
  for BistaticHub to generate rays.
- Note that the transmitting radar is 
-\emph on 
+ Note that the transmitting radar is
+\emph default
+ 
+\emph on
 always
-\emph toggle 
- in the enabled state and that clicking the enabled/disabled button for
- the radar has no effect.
+\emph default
+ 
+\emph toggle
+in the enabled state and that clicking the enabled/disabled button for the
+ radar has no effect.
  Following the enable/disable button is status information for the receiver
  showing times from incoming data on the upper line and the first eight
  gates of reflectivity and velocity data below.
  If data are not incoming from an enabled receiver, the status line will
  indicate in red how long it has been since data have been received.
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The middle of the window is a text area which logs various informational
  messages.
  Unexpected events will be reported here, as will debugging messages when
  debugging is enabled.
  If an abnormal exit occurs, the contents of the log area will be written
  to a file named 
-\family typewriter 
+\family typewriter
 BistaticHub.log
-\family default 
+\family default
 .
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The bottom of the window has control buttons: Hub Recording, Debug Level,
  Send Command, and Shut Down.
  The Hub Recording button shows whether data are currently being recorded
@@ -571,25 +821,30 @@ The bottom of the window has control buttons: Hub Recording, Debug Level,
  Debug level 0 prints the minimum amount of information, with information
  increasing through levels 1, 2, and 3.
  See Section 
-\begin_inset LatexCommand \ref{sec: statusinfo}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec: statusinfo"
 
-\end_inset 
+\end_inset
 
  below for a description of debug levels and status information.
  The Send Command button pops up a window allowing text commands to be sent
  to any or all of the receivers; see receiver documentation for allowed
  commands.
  Finally, the Shut Down button will shut down BistaticHub.
-\layout Subsection
+\end_layout
 
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec: statusinfo"
 
-\begin_inset LatexCommand \label{sec: statusinfo}
-
-\end_inset 
+\end_inset
 
 Status information
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The status information portion of the BistaticHub window displays useful
  information, with more information being shown as the debug level is increased.
  At debug level zero, only critical messages will be displayed; this should
@@ -607,15 +862,15 @@ The status information portion of the BistaticHub window displays useful
  The letters assigned to each receiver are again in the order of the receiver
  information file, with the radar being 
 \begin_inset Quotes eld
-\end_inset 
+\end_inset
 
 
-\family typewriter 
+\family typewriter
 a
-\family default 
+\family default
 .
 \begin_inset Quotes erd
-\end_inset 
+\end_inset
 
  Finally, at debug level three, very complete information is printed about
  the data coming into BistaticHub.
@@ -625,200 +880,256 @@ a
  It is recommended that debug levels greater than zero be used only when
  debugging specific problems, since a great deal of I/O is generated by
  the higher debug levels.
-\layout Section
+\end_layout
 
+\begin_layout Section
 The xbistat Program
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The xbistat program provides graphical display of the data generated by
  the BistaticHub program.
  It is generally run in real-time whenever BistaticHub is running.
  It can also be run separate from BistaticHub to display data files generated
  by BistaticHub.
  The program is usually run in the background via one of the commands:
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 xbistat [options] &
-\hfill 
+\begin_inset space \hfill{}
+\end_inset
 
-\family default 
+
+\family default
 (for real-time)
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 xbistat [options] <data_file> &
-\family default 
+\family default
 
-\hfill 
+\begin_inset space \hfill{}
+\end_inset
+
 (for looking at existing files)
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 In the second mode, 
-\family typewriter 
+\family typewriter
 <data_file>
-\family default 
+\family default
  is simply the name of the BistaticHub data file to be viewed.
  For other command line options, see Section 
-\begin_inset LatexCommand \ref{sec: xbistatoptions}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec: xbistatoptions"
 
-\end_inset 
+\end_inset
 
  below.
  When it is run, xbistat pops up a single window as shown in Figure 
-\begin_inset LatexCommand \ref{fig: xbistat}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "fig: xbistat"
 
-\end_inset 
+\end_inset
 
 .
-\begin_float fig 
-\layout Standard
-\align center 
+\begin_inset Float figure
+wide false
+sideways false
+status open
 
-\begin_inset Figure size 297 222
-file xbistat.eps
-width 4 100
-flags 10
+\begin_layout Plain Layout
+\align center
+\begin_inset Graphics
+	filename xbistat.png
+	width 75col%
 
-\end_inset 
-
-
-\layout Caption
+\end_inset
 
 
-\begin_inset LatexCommand \label{fig: xbistat}
+\end_layout
 
-\end_inset 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "fig: xbistat"
+
+\end_inset
 
 the xbistat window
-\end_float 
-\layout Subsection
+\end_layout
+
+\end_inset
 
 
-\begin_inset LatexCommand \label{sec: xbistatoptions}
+\end_layout
 
-\end_inset 
+\end_inset
+
+
+\end_layout
+
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec: xbistatoptions"
+
+\end_inset
 
 xbistat command line options
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 There are a few command line options for controlling the initial display
  state of xbistat:
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 -x
-\family default 
+\family default
 , 
-\family typewriter 
+\family typewriter
 --xcenter <xval>
-\hfill 
+\begin_inset space \hfill{}
+\end_inset
 
-\family default 
+
+\family default
 x center w.r.t.
  the radar, in km (default 0)
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 -y
-\family default 
+\family default
 , 
-\family typewriter 
+\family typewriter
 --ycenter <yval>
-\hfill 
+\begin_inset space \hfill{}
+\end_inset
 
-\family default 
+
+\family default
 y center w.r.t.
  the radar, in km (default 0)
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 -p
-\family default 
+\family default
 , 
-\family typewriter 
+\family typewriter
 --pixels_per_km <pval>
-\hfill 
+\begin_inset space \hfill{}
+\end_inset
 
-\family default 
+
+\family default
 magnification, in pixels/km (default 2.5)
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 -i
-\family default 
+\family default
 , 
-\family typewriter 
+\family typewriter
 --init_file <file>
-\hfill 
+\begin_inset space \hfill{}
+\end_inset
 
-\family default 
+
+\family default
 initialization file (none by default)
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 Section 
-\begin_inset LatexCommand \ref{sec: xbistatinit}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "sec: xbistatinit"
 
-\end_inset 
+\end_inset
 
  below describes the format of the optional initialization file.
-\layout Subsection
+\end_layout
 
+\begin_layout Subsection
+\begin_inset CommandInset label
+LatexCommand label
+name "sec: xbistatinit"
 
-\begin_inset LatexCommand \label{sec: xbistatinit}
-
-\end_inset 
+\end_inset
 
 Optional initialization file
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 Using the 
-\family typewriter 
+\family typewriter
 --init_file
-\family default 
+\family default
  command line option, xbistat can be given a text file to read for setting
  initial conditions.
  This initialization file can contain the following commands, which parallel
  the command line options described above:
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 xcenter <xval>
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 ycenter <yval>
-\layout Quote
+\end_layout
 
+\begin_layout Quote
 
-\family typewriter 
-\size small 
+\family typewriter
+\size small
 pixels_per_km <pval>
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 The commands must be one per line and must begin at the first character
  of the line.
-\layout Subsection
+\end_layout
 
+\begin_layout Subsection
 Controlling xbistat
-\layout Standard
+\end_layout
 
+\begin_layout Standard
 When xbistat starts up, it will be displaying a raster data field overlaid
  with wind vectors.
  The display is centered on the radar and will show a fairly wide area of
@@ -826,140 +1137,376 @@ When xbistat starts up, it will be displaying a raster data field overlaid
  Means are provided, via mouse button clicks and single key commands, for
  changing the fields and area displayed as xbistat runs.
  Table 
-\begin_inset LatexCommand \ref{tab: xbistatcmds}
+\begin_inset CommandInset ref
+LatexCommand ref
+reference "tab: xbistatcmds"
 
-\end_inset 
+\end_inset
 
  shows the available xbistat commands.
  Letter case is important here; some letters are used in both upper and
  lower case for different commands.
-\begin_float tab 
-\layout Standard
-\align center \LyXTable
-multicol5
-16 2 0 0 -1 -1 -1 -1
-1 0 0 0
-1 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 0 0 0
-0 1 0 0
-8 1 0 "" ""
-2 1 1 "" ""
-0 8 1 0 0 0 0 "" ""
-0 2 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 2 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 2 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 2 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 2 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 2 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 2 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
-0 8 0 1 0 0 0 "" ""
+\begin_inset Float table
+wide false
+sideways false
+status open
 
+\begin_layout Plain Layout
+\align center
+\begin_inset Tabular
+<lyxtabular version="3" rows="16" columns="2">
+<features tabularvalignment="middle">
+<column alignment="center" valignment="top" width="0pt">
+<column alignment="left" valignment="top" width="0pt">
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 key
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 Action
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" topline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 (left mouse button)
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" topline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 move center of display to the point under the cursor
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 (space)
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 stop or resume display update
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 (up arrow)
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 change to the next available raster field
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 (down arrow)
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 change to the previous available raster field
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 (right arrow)
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 change to the next available wind field
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 (left arrow)
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="left" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 change to the previous available wind field
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 c
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 clear the raster portion of the display
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 C
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 clear the vector portion of the display
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 q
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 quit the xbistat program
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 r
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 toggle display of the raster field
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 u
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 decrease magnification (unzoom) by a factor of 1.2
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 U
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 decrease magnification (unzoom) by a factor of 2.0
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 w
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 toggle display of the vectors (winds)
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 z
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 increase magnification (zoom) by a factor of 1.2
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+</row>
+<row>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 Z
-\newline 
+\end_layout
+
+\end_inset
+</cell>
+<cell alignment="center" valignment="top" bottomline="true" leftline="true" rightline="true" usebox="none">
+\begin_inset Text
+
+\begin_layout Plain Layout
 increase magnification (zoom) by a factor of 2.0
-\layout Caption
+\end_layout
+
+\end_inset
+</cell>
+</row>
+</lyxtabular>
+
+\end_inset
 
 
-\begin_inset LatexCommand \label{tab: xbistatcmds}
+\end_layout
 
-\end_inset 
+\begin_layout Plain Layout
+\begin_inset Caption Standard
+
+\begin_layout Plain Layout
+\begin_inset CommandInset label
+LatexCommand label
+name "tab: xbistatcmds"
+
+\end_inset
 
 xbistat commands
-\end_float 
+\end_layout
+
+\end_inset
+
+
+\end_layout
+
+\end_inset
+
  
-\the_end
+\end_layout
+
+\end_body
+\end_document
