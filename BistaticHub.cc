@@ -1011,25 +1011,12 @@ WriteBeam( const MergedBeam* mb )
 
 
 static int
-CheckDataSpace( const char* fname, unsigned long threshold )
+CheckDataSpace( const char* dir, unsigned long threshold )
 //
 // Assure that we have at least 'threshold' free MB in the filesystem
-// containing 'fname'.
+// containing 'dir'.
 //
 {
-//
-// We want just the directory information from the filename, so strip 
-// everything from the last slash onward.  If there is no slash, set the
-// directory to "."
-//
-    char dir[256];
-    strcpy( dir, fname );
-
-    char *lastslash = strrchr( dir, '/' );
-    if (lastslash)
-	lastslash[0] = '\0';
-    else
-	strcpy( dir, "." );
 //
 // Get the filesystem stats for the directory
 //
