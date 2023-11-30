@@ -19,6 +19,8 @@ new beams are available.
 The program is in two pieces: `BistaticHub.py` and `BistaticHub`.  The
 first is just a Python GUI wrapper for the second.
 
+![xbistat](doc/BistaticHub.png?raw=true "BistaticHub.png")
+
 ## `pb_fakesource`
 
 This program simulates a bistatic receiver, generating "PIRAQ 
