@@ -184,89 +184,89 @@ NCWriter::Write( const MergedBeam* mb )
 //
     for (size_t r = 0; r < NumRcvrs; r++)
     {
-	ngates = mb->Gates( r );
-    //
-    // Loop through the five per-receiver vars
-    //
-	for (int fld = 0; fld < 5; fld++)
-	{
-	    int varid;
-	    float scale, offset;
-	//
-	// Set up for this field
-	//
-	    switch (fld)
-	    {
-	    // Z or power
-	      case 0:
-		varid = ZVars[r];
-		if (r == 0)
-		    mb->dBZData( fdata, MaxCells, FBADVAL, r );
-		else
-		    mb->dBmData( fdata, MaxCells, FBADVAL, r );
-		scale = PWRSCALE;
-		offset = PWROFFSET;
-		break;
-	    // radial velocity
-	      case 1:
-		varid = VelVars[r];
-		mb->VelData( fdata, MaxCells, FBADVAL, r );
-		scale = VELSCALE;
-		offset = VELOFFSET;
-		break;
-	    // NCP
-	      case 2:
-		varid = NCPVars[r];
-		mb->NCPData( fdata, MaxCells, FBADVAL, r );
-		scale = NCPSCALE;
-		offset = NCPOFFSET;
-		break;
-	    // U wind
-	      case 3:
-		if (r == 0)
-		    continue;	// no xmitter/xmitter U
+        ngates = mb->Gates( r );
+        //
+        // Loop through the five per-receiver vars
+        //
+        for (int fld = 0; fld < 5; fld++)
+        {
+            int varid;
+            float scale, offset;
+        //
+        // Set up for this field
+        //
+            switch (fld)
+            {
+            // Z or power
+              case 0:
+                varid = ZVars[r];
+                if (r == 0)
+                    mb->dBZData( fdata, MaxCells, FBADVAL, r );
+                else
+                    mb->dBmData( fdata, MaxCells, FBADVAL, r );
+                scale = PWRSCALE;
+                offset = PWROFFSET;
+                break;
+            // radial velocity
+              case 1:
+                varid = VelVars[r];
+                mb->VelData( fdata, MaxCells, FBADVAL, r );
+                scale = VELSCALE;
+                offset = VELOFFSET;
+                break;
+            // NCP
+              case 2:
+                varid = NCPVars[r];
+                mb->NCPData( fdata, MaxCells, FBADVAL, r );
+                scale = NCPSCALE;
+                offset = NCPOFFSET;
+                break;
+            // U wind
+              case 3:
+                if (r == 0)
+                    continue;	// no xmitter/xmitter U
 
-		varid = UVars[r];
-		mb->UWindData( fdata, MaxCells, FBADVAL, r );
-		ngates = mb->Gates( 0 );	// u is in xmitter gates
-		scale = VELSCALE;
-		offset = VELOFFSET;
-		break;
-	    // V wind
-	      case 4:
-		if (r == 0)
-		    continue;	// no xmitter/xmitter V
+                varid = UVars[r];
+                mb->UWindData( fdata, MaxCells, FBADVAL, r );
+                ngates = mb->Gates( 0 );	// u is in xmitter gates
+                scale = VELSCALE;
+                offset = VELOFFSET;
+                break;
+            // V wind
+              case 4:
+                if (r == 0)
+                    continue;	// no xmitter/xmitter V
 
-		varid = VVars[r];
-		mb->VWindData( fdata, MaxCells, FBADVAL, r );
-		ngates = mb->Gates( 0 );	// v is in xmitter gates
-		scale = VELSCALE;
-		offset = VELOFFSET;
-		break;
-	      default:
-		fprintf( stderr, 
-			 "NCWriter::Write(): BUG: unexpected field %d!\n", 
-			 fld );
-		exit( 1 );
-	    }
-	//	
-	// Scale the floating point data into int16_t
-	//
-	    for (int gate = 0; gate < ngates; gate++)
-	    {
-		if (fdata[gate] != FBADVAL)
-		    sdata[gate] = (int16_t)((fdata[gate] - offset) / scale);
-		else
-		    sdata[gate] = SBADVAL;
-	    }
-	//
-	// Write the int16_t array
-	//
-	    count[1] = ngates;
-	    NCErrTest( nc_put_vara_short( NCid, varid, index, count, sdata ) );
-	    if (! TempOnly)
-		Filesize += 2 * MaxCells;
-	}
+                varid = VVars[r];
+                mb->VWindData( fdata, MaxCells, FBADVAL, r );
+                ngates = mb->Gates( 0 );	// v is in xmitter gates
+                scale = VELSCALE;
+                offset = VELOFFSET;
+                break;
+              default:
+                fprintf( stderr,
+                     "NCWriter::Write(): BUG: unexpected field %d!\n",
+                     fld );
+                exit( 1 );
+            }
+        //
+        // Scale the floating point data into int16_t
+        //
+            for (int gate = 0; gate < ngates; gate++)
+            {
+            if (fdata[gate] != FBADVAL)
+                sdata[gate] = (int16_t)((fdata[gate] - offset) / scale);
+            else
+                sdata[gate] = SBADVAL;
+            }
+        //
+        // Write the int16_t array
+        //
+            count[1] = ngates;
+            NCErrTest( nc_put_vara_short( NCid, varid, index, count, sdata ) );
+            if (! TempOnly)
+            Filesize += 2 * MaxCells;
+        }
     }
 
     delete[] sdata;
